@@ -1,0 +1,87 @@
+body {
+    position: relative;
+    background-image: url(background.jpg);
+    background-size: cover; /* Cover the entire area */
+    background-position: center; /* Center the image */
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    margin: 0; /* Remove default margin */    
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity */
+    z-index: 1; /* Place it below text */
+}
+
+/* General text styles */
+h1, p {
+    position: relative; /* Ensure it sits above the overlay */
+    color: white; /* Text color */
+    z-index: 2; /* Above the overlay */
+}
+
+h1 {
+    font-size: 40px;
+}
+
+p {
+    font-size: 25px;
+}
+
+/* Container for layout */
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    margin-bottom: 10%;
+}
+
+.topContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+    text-align: center;
+    color: white;
+}
+
+/* Button container to place it properly */
+.bottomContainer {
+    position: absolute; /* Absolutely positioned */
+    bottom: 120px; /* 50px from the bottom */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust for centering */
+    z-index: 2; /* Above the overlay */
+}
+
+/* Button styles */
+button {
+    background-color: #7D7DEB; /* Primary color */
+    color: white;
+    width: 10rem;
+    height: 4rem;
+    border: 2px solid #7D7DEB;
+    border-radius: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 1rem;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect for button */
+button:hover {
+    background-color: rgb(20, 91, 20); /* Change color on hover */
+}
