@@ -2,6 +2,8 @@ body {
     position: relative;
     background-image: url(background.jpg);
     background-size: cover; /* Cover the entire area */
+    background-repeat: repeat;
+    background-attachment: fixed;
     background-position: center; /* Center the image */
     font-family: 'Montserrat', sans-serif;
     display: flex;
@@ -18,7 +20,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity */
+    background-color: rgba(0, 0, 0, 0.6); /* Adjust the opacity */
     z-index: 1; /* Place it below text */
 }
 
@@ -30,12 +32,34 @@ h1, p {
 }
 
 h1 {
-    font-size: 40px;
+    font-size: 45px;
 }
 
 p {
-    font-size: 25px;
+    font-size: 28px;
 }
+
+.pop-in{
+    opacity: 0; /* Initially hidden */
+    transform: scale(0.8); /* Start slightly smaller */
+    animation: popIn 3s ease-out forwards;
+}
+
+@keyframes popIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8); /* Smaller scale */
+    }
+    60% {
+        opacity: 1;
+        transform: scale(1.1); /* Overshoot scale for the pop effect */
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1); /* Back to normal size */
+    }
+}
+
 
 /* Container for layout */
 .mainContainer {
@@ -59,7 +83,7 @@ p {
 /* Button container to place it properly */
 .bottomContainer {
     position: absolute; /* Absolutely positioned */
-    bottom: 120px; /* 50px from the bottom */
+    bottom: 180px; /* 50px from the bottom */
     left: 50%; /* Center horizontally */
     transform: translateX(-50%); /* Adjust for centering */
     z-index: 2; /* Above the overlay */
