@@ -5,7 +5,7 @@ export default function Home() {
   const router = useRouter();
 
   const handlePredictionClick = () => {
-    router.push('/homePage');
+    router.push('/HomePage/Page');
   }
 
   return (
