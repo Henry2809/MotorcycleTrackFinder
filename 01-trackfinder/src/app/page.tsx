@@ -28,7 +28,7 @@ export default function Home() {
           <button 
             onClick={handlePredictionClick}
             className="w-40 h-18 bg-blue-500 text-white text-xl text-center font-bold py-2 rounded-full hover:bg-blue-600 transition duration-200"
-          >Get started</button>
+          > <p>Get Started</p></button>
         </div>
       </div>
     </div>

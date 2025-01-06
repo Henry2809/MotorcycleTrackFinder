@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import NavBar from "@/app/NavBar";
+import ShimmerButton from "@/components/ui/shimmer-button";
 
 type Coordinates = { // for typescript knows the user location state
   latitude: number;
@@ -50,10 +51,10 @@ export default function Home() {
           </h1>
 
 
-          <button 
+          <ShimmerButton
             onClick={getUserLocation} 
             className="px-4 py-2 mt-24 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition"
-          >Get Location </button>
+          >Get Location </ShimmerButton>
           {userLocation && (
             <p className="text-black text-lg">
               Latitude: {userLocation.latitude}, 
