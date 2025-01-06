@@ -70,7 +70,7 @@ export default function Home() {
                 autoPlay
                 playsInline
                 controls={false}
-                className="rounded shadow-lg"
+                className="rounded shadow-lg min-h-full"
               > Your browser does not support the video tag.</video>
           </div>
 
