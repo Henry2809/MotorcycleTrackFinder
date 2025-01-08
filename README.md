@@ -32,4 +32,14 @@ Use the cd command to change into the project directory (01-trackfinder) where y
 
 Once the server is running, open your web browser and visit:
 
+```bash
 http://localhost:3000/
+```
+
+
+**Clear Cache if page not working**
+
+```bash
+rm -rf .next
+npm run dev
+```

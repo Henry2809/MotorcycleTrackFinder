@@ -9,32 +9,32 @@ export default function NavBar() {
 
   return (
         <nav className="tab-bar w-full p-4 flex justify-center items-center text-black fixed top-0 bg-gray-100 opacity-100 shadow-md z-50">
-        <div className="flex space-x-7">
-                <Link href="/" className="tab-button flex flex-col items-center">
-                        <FaHome />
-                        <span>Home</span>
-                </Link>
-
-                <Link href="/events" className="tab-button flex flex-col items-center">
-                        <FaCalendarAlt />
-                        <span>Events</span>
-                </Link>
-
-                <Link href="/hotspots" className="tab-button flex flex-col items-center">
-                        <FaFire />
-                        <span>Hot Tracks</span>
-                </Link>
-
-                <Link href="/notifications" className="tab-button flex flex-col items-center">
-                        <FaBell />
-                        <span>Notifications</span>
+                <div className="flex space-x-7">
+                        <Link href="/" className="tab-button flex flex-col items-center">
+                                <FaHome />
+                                <span>Home</span>
                         </Link>
-                <Link href="/Profile" className="tab-button flex flex-col items-center">
-                        <FaUser />
-                        <span>Profile</span>
-                </Link>
-        </div>
-      </nav>
+
+                        <Link href="/events" className="tab-button flex flex-col items-center">
+                                <FaCalendarAlt />
+                                <span>Events</span>
+                        </Link>
+
+                        <Link href="/hotspots" className="tab-button flex flex-col items-center">
+                                <FaFire />
+                                <span>Hot Tracks</span>
+                        </Link>
+
+                        <Link href="/notifications" className="tab-button flex flex-col items-center">
+                                <FaBell />
+                                <span>Notifications</span>
+                                </Link>
+                        <Link href="/Profile" className="tab-button flex flex-col items-center">
+                                <FaUser />
+                                <span>Profile</span>
+                        </Link>
+                </div>
+        </nav>
       
   );
 }

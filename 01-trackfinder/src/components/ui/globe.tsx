@@ -30,6 +30,8 @@ const GLOBE_CONFIG: COBEOptions = {
     { location: [40.7128, -74.006], size: 0.1 },
     { location: [34.6937, 135.5022], size: 0.05 },
     { location: [41.0082, 28.9784], size: 0.06 },
+    { location: [39.9343616, -75.0485504], size: 0.07 },
+    { location: [37.85, 6.10], size: 0.06 },
   ],
 };
 
@@ -64,7 +66,7 @@ export default function Globe({
 
   const onRender = useCallback(
     (state: Record<string, any>) => {
-      if (!pointerInteracting.current) phi += 0.005;
+      if (!pointerInteracting.current) phi += 0.003;
       state.phi = phi + r;
       state.width = width * 2;
       state.height = width * 2;
@@ -96,7 +98,7 @@ export default function Globe({
   return (
     <div
       className={cn(
-        "absolute right-[22%] w-2/3 aspect-[1/1] max-w-[600px]",
+        // "absolute inset-y-0 right-44 flex items-center justify-center w-1/2",
         className,
       )}
     >
