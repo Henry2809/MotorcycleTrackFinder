@@ -64,7 +64,7 @@ export default function Home() {
         <div className="w-5/6 flex justify-center items-center pt-8 min-h-screen mx-auto">
           <div className="overflow-hidden rounded-3xl w-full">
             <video
-              src="/vid1.mp4"
+              src="/vid1Compressed.mp4"
               loop
               muted
               autoPlay
@@ -91,7 +91,7 @@ export default function Home() {
 
 
         {/* Find Track Section */}
-        <div className="relative flex w-full rounded-lg border bg-white px-8 md:shadow-xl h-[600px]">
+        <div className="relative flex w-full rounded-lg border bg-white px-8 md:shadow-xl h-[700px]">
           {/* Left side with text and button */}
           <div className="flex flex-col justify-center items-center space-y-6 w-3/5">
             <div className="space-y-4 text-center">
@@ -112,7 +112,7 @@ export default function Home() {
           </div>
 
           {/* Right side with Globe */}
-          <div>
+          <div className="flex items-center justify-center top-5">
             <Globe className="absolute inset-y-0 right-44 mt-16 w-2/5"/>
           </div>
 
