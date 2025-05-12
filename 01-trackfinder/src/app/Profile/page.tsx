@@ -1,17 +1,18 @@
 // src/app/profile/page.tsx
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { useRouter } from "next/navigation";
 import Registration from "@/app/Reg";
 import NavBar from "@/app/NavBar";
+import Image from "next/image";
 
 export default function Profile() {
   const [isRegistered, setIsRegistered] = useState(false);
   const [name, setName] = useState("");
   const [profilePicture, setProfilePicture] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
-  const [isSaved, setIsSaved] = useState(false); 
+  // const [isSaved, setIsSaved] = useState(false); 
   const [saveMessage, setSaveMessage] = useState("");
   const router = useRouter();
 
@@ -63,12 +64,12 @@ export default function Profile() {
 
     // Show the save confirmation message
     setSaveMessage("Profile saved successfully!");
-    setIsSaved(true);
+    // setIsSaved(true);
 
     // Clear the confirmation message after a few seconds
     setTimeout(() => {
       setSaveMessage("");
-      setIsSaved(false);
+      // setIsSaved(false);
     }, 3000);
 
 
@@ -111,13 +112,16 @@ export default function Profile() {
         <h1 className="text-4xl font-bold mb-4">Profile Page</h1>
         <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md w-full max-w-md space-y-6">
 
-          {/* Profile Picture Preview at the top */}
+           {/* Profile Picture Preview at the top */}
           <div className="flex justify-center mb-4">
             {preview ? (
-              <img
+              <Image
                 src={preview}
                 alt="Profile Preview"
-                className="w-32 h-32 object-cover rounded-full"
+                width={128}
+                height={128}
+                className="object-cover rounded-full"
+                priority
               />
             ) : (
               <div className="w-32 h-32 bg-gray-200 rounded-full flex items-center justify-center text-gray-400">

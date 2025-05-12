@@ -22,10 +22,11 @@ Use the cd command to change into the project directory (01-trackfinder) where y
   npm install
 ```
 
-**Run the Development Server**
+**Run the application**
 
 ```bash
-  npm run dev
+  npm run build 
+  npm run start
 ```
 
 **Open the Application**
@@ -41,5 +42,6 @@ http://localhost:3000/
 
 ```bash
 rm -rf .next
-npm run dev
+npm run build 
+npm run start
 ```

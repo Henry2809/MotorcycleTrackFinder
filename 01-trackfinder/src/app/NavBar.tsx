@@ -1,11 +1,11 @@
 "use client";
 import { FaHome, FaCalendarAlt, FaBell, FaUser, FaFire } from "react-icons/fa";
-import { useState, useEffect, useRef } from "react";
+// import { useState, useRef } from "react";
 import Link from "next/link";
 
 export default function NavBar() {
-  const [isNotificationOpen, setNotificationOpen] = useState(false);
-  const notificationRef = useRef(null);
+//   const [isNotificationOpen, setNotificationOpen] = useState(false);
+//   const notificationRef = useRef(null);
 
   return (
         <nav className="tab-bar w-full p-4 flex justify-center items-center text-black fixed top-0 bg-gray-100 opacity-100 shadow-md z-50">

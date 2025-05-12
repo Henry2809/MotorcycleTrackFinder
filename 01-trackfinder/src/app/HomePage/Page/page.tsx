@@ -77,7 +77,6 @@ export default function Home() {
           </div>
         </div>
 
-
         <div className="w-5/6 flex justify-start pt-32">
           <h1 className="text-7xl font-bold">
             <span className="relative text-black">Services</span>
@@ -87,53 +86,54 @@ export default function Home() {
         <div className="w-5/6 pb-32">
           <Card />
         </div>
-                
 
-
-        {/* Find Track Section */}
         <div className="relative flex w-full rounded-lg border bg-white px-8 md:shadow-xl h-[700px]">
-          {/* Left side with text and button */}
+          {/* Left side */}
           <div className="flex flex-col justify-center items-center space-y-6 w-3/5">
             <div className="space-y-4 text-center">
-              <h2 className="text-5xl font-extrabold">Worldwide Track Finder</h2>
+              <h2 className="text-5xl font-extrabold">
+                Worldwide Track Finder
+              </h2>
               <p className="text-xl text-gray-700">
-                Discover racing tracks near you with just one click.<br />
-                We'll help you find the best locations for your rides.
+                Discover racing tracks near you with just one click.
+                <br />
+                We&apos;ll help you find the best locations for your rides.
               </p>
             </div>
-
-            {/* Button positioned under the text */}
             <ShimmerButton
               onClick={getUserLocation}
-              className="px-6 py-3 items-center bg-blue-600 text-white font-bold text-sm rounded-full hover:bg-blue-700 transition w-fit"
+              className="px-6 py-3 bg-blue-600 text-white font-bold text-sm rounded-full hover:bg-blue-700 transition w-fit"
             >
               Find Track
             </ShimmerButton>
           </div>
 
-          {/* Right side with Globe */}
-          <div className="flex items-center justify-center top-5">
-            <Globe className="absolute inset-y-0 right-44 mt-16 w-2/5"/>
+          {/* Globe side, shifted left/up */}
+          <div
+            className="
+                flex items-center justify-center
+                w-2/5 h-full
+
+                /* shift left by 10 (2.5rem) and up by 8 (2rem) */
+                transform -translate-x-32 -translate-y-8
+              "
+          >
+            <Globe className="w-full h-full" />
           </div>
 
           {/* Gradient Overlay */}
-          <div className="pointer-events-none absolute h-full inset-0 bg-[radial-gradient(circle_at_50%_200%,rgba(0,0,0,0.2),rgba(255,255,255,0))]" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_200%,rgba(0,0,0,0.2),rgba(255,255,255,0))]" />
 
           {/* Location Display */}
           {userLocation && (
             <div className="absolute bottom-8 left-8 text-gray-800">
               <p className="text-lg">
-                Latitude: {userLocation.latitude}, 
-                Longitude: {userLocation.longitude}
+                Latitude: {userLocation.latitude}, Longitude:{" "}
+                {userLocation.longitude}
               </p>
             </div>
           )}
         </div>
-
-
-
-
-        
       </main>
     </div>
   );
