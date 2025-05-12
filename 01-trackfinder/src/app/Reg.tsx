@@ -5,7 +5,7 @@ interface RegistrationProps {
 }
 
 
-export default function Registration({ onRegister }: RegistrationProps) {
+export default function Registration({ }: RegistrationProps) {
         const [email, setEmail] = useState("");
         const [password, setPassword] = useState("");
         const [error, setError] = useState<string | null>(null);

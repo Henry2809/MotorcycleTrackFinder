@@ -2,7 +2,6 @@
 
 import createGlobe, { COBEOptions } from "cobe";
 import { useCallback, useEffect, useRef, useState } from "react";
-
 import { cn } from "@/lib/utils";
 
 const GLOBE_CONFIG: COBEOptions = {
@@ -20,7 +19,8 @@ const GLOBE_CONFIG: COBEOptions = {
   markerColor: [251 / 255, 100 / 255, 21 / 255],
   glowColor: [1, 1, 1],
   markers: [
-    { location: [14.5995, 120.9842], size: 0.03 },
+    // location of all the tracks, static markers
+    { location: [14.5995, 120.9842], size: 0.1 },
     { location: [19.076, 72.8777], size: 0.1 },
     { location: [23.8103, 90.4125], size: 0.05 },
     { location: [30.0444, 31.2357], size: 0.07 },
@@ -42,81 +42,96 @@ export default function Globe({
   className?: string;
   config?: COBEOptions;
 }) {
-  let phi = 0;
-  let width = 0;
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const pointerInteracting = useRef(null);
-  const pointerInteractionMovement = useRef(0);
+
+  // persist mutable values:
+  const widthRef = useRef(0);
+  const phiRef = useRef(0);
+  const draggingRef = useRef(false);
+  const startXRef = useRef(0);
+
+  // `r` drives the user-drag rotation offset
   const [r, setR] = useState(0);
 
-  const updatePointerInteraction = (value: any) => {
-    pointerInteracting.current = value;
+  // Measure canvas width on mount + resize
+  const onResize = useCallback(() => {
     if (canvasRef.current) {
-      canvasRef.current.style.cursor = value ? "grabbing" : "grab";
+      widthRef.current = canvasRef.current.offsetWidth;
     }
-  };
+  }, []);
 
-  const updateMovement = (clientX: any) => {
-    if (pointerInteracting.current !== null) {
-      const delta = clientX - pointerInteracting.current;
-      pointerInteractionMovement.current = delta;
-      setR(delta / 200);
-    }
-  };
-
-  const onRender = useCallback(
-    (state: Record<string, any>) => {
-      if (!pointerInteracting.current) phi += 0.003;
-      state.phi = phi + r;
-      state.width = width * 2;
-      state.height = width * 2;
+  // This matches COBEOptions.onRender exactly
+  const onRender: COBEOptions["onRender"] = useCallback(
+    (state) => {
+      if (!draggingRef.current) {
+        phiRef.current += 0.003;
+      }
+      state.phi = phiRef.current + r;
+      state.width = widthRef.current * 2;
+      state.height = widthRef.current * 2;
     },
-    [r],
+    [r]
   );
 
-  const onResize = () => {
-    if (canvasRef.current) {
-      width = canvasRef.current.offsetWidth;
-    }
-  };
-
+  // Initialize & clean up the globe
   useEffect(() => {
     window.addEventListener("resize", onResize);
     onResize();
 
     const globe = createGlobe(canvasRef.current!, {
       ...config,
-      width: width * 2,
-      height: width * 2,
+      width: widthRef.current * 2,
+      height: widthRef.current * 2,
       onRender,
     });
 
-    setTimeout(() => (canvasRef.current!.style.opacity = "1"));
-    return () => globe.destroy();
+    if (canvasRef.current) {
+      canvasRef.current.style.opacity = "1";
+      canvasRef.current.style.cursor = "grab";
+    }
+
+    return () => {
+      globe.destroy();
+      window.removeEventListener("resize", onResize);
+    };
+  }, [config, onRender, onResize]);
+
+  // Pointer event handlers
+  const handlePointerDown = useCallback((e: React.PointerEvent<HTMLCanvasElement>) => {
+    draggingRef.current = true;
+    startXRef.current = e.clientX;
+    if (canvasRef.current) {
+      canvasRef.current.style.cursor = "grabbing";
+    }
+  }, []);
+
+  const handlePointerUpOrOut = useCallback(() => {
+    draggingRef.current = false;
+    if (canvasRef.current) {
+      canvasRef.current.style.cursor = "grab";
+    }
+    setR(0);
+  }, []);
+
+  const handleMove = useCallback((clientX: number) => {
+    if (draggingRef.current) {
+      const delta = clientX - startXRef.current;
+      startXRef.current = clientX;
+      setR(delta / 200);
+    }
   }, []);
 
   return (
-    <div
-      className={cn(
-        // "absolute inset-y-0 right-44 flex items-center justify-center w-1/2",
-        className,
-      )}
-    >
+    <div className={cn(className)}>
       <canvas
-        className={cn(
-          "size-full opacity-0 transition-opacity duration-500 [contain:layout_paint_size]",
-        )}
         ref={canvasRef}
-        onPointerDown={(e) =>
-          updatePointerInteraction(
-            e.clientX - pointerInteractionMovement.current,
-          )
-        }
-        onPointerUp={() => updatePointerInteraction(null)}
-        onPointerOut={() => updatePointerInteraction(null)}
-        onMouseMove={(e) => updateMovement(e.clientX)}
+        className="w-full h-full opacity-0 transition-opacity duration-500"
+        onPointerDown={handlePointerDown}
+        onPointerUp={handlePointerUpOrOut}
+        onPointerOut={handlePointerUpOrOut}
+        onPointerMove={(e) => handleMove(e.clientX)}
         onTouchMove={(e) =>
-          e.touches[0] && updateMovement(e.touches[0].clientX)
+          e.touches[0] && handleMove(e.touches[0].clientX)
         }
       />
     </div>
